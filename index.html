@@ -41,29 +41,14 @@
     </div>
     <!-- modal 2 -->
     <div class="container">
-      <h1>Web Component Modal Demo 2</h1>
+      <h1>Tender App Modal</h1>
       <div class="button-group">
         <button id="open-modal-btn-2" class="btn btn-primary">
-          Mở Modal 2
+          Mở Tender App
         </button>
       </div>
-      <app-modal class="app-modal2" heading="Modal Demo 2">
-        <p>Đây là nội dung của modal 2.</p>
-        <p>Hello world</p>
-        <div slot="footer">
-          <button
-            class="btn btn-secondary"
-            onclick="this.closest('app-modal').close()"
-          >
-            Hủy
-          </button>
-          <button
-            class="btn btn-primary"
-            onclick="alert('Đã lưu!'); this.closest('app-modal').close()"
-          >
-            Lưu
-          </button>
-        </div>
+      <app-modal class="app-modal2" fullscreen heading="🔥 Tender App">
+        <app-tender></app-tender>
       </app-modal>
     </div>
   </body>

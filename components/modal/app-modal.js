@@ -3,6 +3,7 @@ class AppModal extends HTMLElement {
     super();
     this.attachShadow({ mode: "open" });
     this.isOpen = false;
+    this.isFullScreen = false;
     this._boundHandleKeydown = this._handleKeydown.bind(this);
   }
 
@@ -39,8 +40,8 @@ class AppModal extends HTMLElement {
 
         .modal-container {
           min-width: 400px;
-          max-width: 90vw;
-          max-height: 90vh;
+          max-width: 100vw;
+          max-height: 100vh;
           background: #fff;
           border-radius: 12px;
           box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
@@ -55,11 +56,24 @@ class AppModal extends HTMLElement {
           opacity: 1;
         }
 
+        .modal-container.fullscreen {
+          width: calc(100vh * 9 / 16);
+          height: 100vh;
+          max-width: 90vw;
+          min-width: 400px;
+          border-radius: 12px;
+          box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
         .modal-header {
           padding: 20px 24px 0;
           display: flex;
           justify-content: space-between;
           align-items: flex-start;
+        }
+
+        .modal-container.fullscreen .modal-header {
+          display: none;
         }
 
         .modal-title {
@@ -97,7 +111,7 @@ class AppModal extends HTMLElement {
         }
 
         .modal-content {
-          padding: 26px 24px 30px;
+          padding: 0;
           color: #4b5563;
           line-height: 1.6;
           max-width: 600px;
@@ -130,10 +144,29 @@ class AppModal extends HTMLElement {
           background: #2563eb;
         }
 
+        .btn-secondary {
+          background: #f3f4f6;
+          color: #374151;
+        }
+
+        .btn-secondary:hover {
+          background: #e5e7eb;
+        }
+
         @media (max-width: 640px) {
           .modal-container {
             min-width: 90vw;
             margin: 20px;
+          }
+          
+          .modal-container.fullscreen {
+            width: 100vw;
+            height: 100vh;
+            min-width: 100vw;
+            max-width: 100vw;
+            margin: 0;
+            border-radius: 0;
+            box-shadow: none;
           }
           
           .modal-header {
@@ -142,6 +175,10 @@ class AppModal extends HTMLElement {
           
           .modal-content {
             padding: 12px 20px 16px;
+          }
+
+          .modal-container.fullscreen .modal-content {
+            padding: 0;
           }
           
           .modal-footer {
@@ -170,24 +207,24 @@ class AppModal extends HTMLElement {
   }
 
   _setupEventListeners() {
-    const overlay = this.shadowRoot.querySelector(".modal-overlay");
-    const closeBtn = this.shadowRoot.querySelector(".close-btn");
+    const overlay = this.shadowRoot.querySelector('.modal-overlay');
+    const closeBtn = this.shadowRoot.querySelector('.close-btn');
 
     // Close khi click vào overlay
-    overlay.addEventListener("click", (e) => {
+    overlay.addEventListener('click', (e) => {
       if (e.target === overlay) {
         this.close();
       }
     });
 
     // Close khi click vào button X
-    closeBtn.addEventListener("click", () => {
+    closeBtn.addEventListener('click', () => {
       this.close();
     });
   }
 
   _handleKeydown(e) {
-    if (e.key === "Escape" && this.isOpen) {
+    if (e.key === 'Escape' && this.isOpen) {
       this.close();
     }
   }
@@ -196,36 +233,77 @@ class AppModal extends HTMLElement {
     if (this.isOpen) return;
 
     this.isOpen = true;
-
+    
+    // Kiểm tra trạng thái fullscreen
+    this.isFullScreen = this.hasAttribute('fullscreen');
+    
     // Thêm event listener cho ESC
-    document.addEventListener("keydown", this._boundHandleKeydown);
-
+    document.addEventListener('keydown', this._boundHandleKeydown);
+    
     // Hiển thị modal với hiệu ứng
-    const overlay = this.shadowRoot.querySelector(".modal-overlay");
-    overlay.classList.add("show");
-
+    const overlay = this.shadowRoot.querySelector('.modal-overlay');
+    const container = this.shadowRoot.querySelector('.modal-container');
+    overlay.classList.add('show');
+    
+    // Áp dụng trạng thái fullscreen
+    if (this.isFullScreen) {
+      container.classList.add('fullscreen');
+    } else {
+      container.classList.remove('fullscreen');
+    }
+    
     // Set heading
-    const title = this.shadowRoot.querySelector(".modal-title");
-    title.textContent = this.getAttribute("heading") || "Modal";
+    const title = this.shadowRoot.querySelector('.modal-title');
+    title.textContent = this.getAttribute('heading') || 'Modal';
   }
 
   close() {
     if (!this.isOpen) return;
 
     this.isOpen = false;
-
+    
     // Xóa event listener cho ESC
-    document.removeEventListener("keydown", this._boundHandleKeydown);
-
+    document.removeEventListener('keydown', this._boundHandleKeydown);
+    
     // Ẩn modal với hiệu ứng
-    const overlay = this.shadowRoot.querySelector(".modal-overlay");
-    overlay.classList.remove("show");
+    const overlay = this.shadowRoot.querySelector('.modal-overlay');
+    overlay.classList.remove('show');
+  }
+
+  toggleFullScreen() {
+    if (!this.isOpen) return;
+    
+    this.isFullScreen = !this.isFullScreen;
+    const container = this.shadowRoot.querySelector('.modal-container');
+    
+    if (this.isFullScreen) {
+      container.classList.add('fullscreen');
+      this.setAttribute('fullscreen', '');
+    } else {
+      container.classList.remove('fullscreen');
+      this.removeAttribute('fullscreen');
+    }
+  }
+
+  setFullScreen(fullscreen) {
+    if (!this.isOpen) return;
+    
+    this.isFullScreen = fullscreen;
+    const container = this.shadowRoot.querySelector('.modal-container');
+    
+    if (this.isFullScreen) {
+      container.classList.add('fullscreen');
+      this.setAttribute('fullscreen', '');
+    } else {
+      container.classList.remove('fullscreen');
+      this.removeAttribute('fullscreen');
+    }
   }
 
   disconnectedCallback() {
-    // Xóa event listeners cho ESC
-    document.removeEventListener("keydown", this._boundHandleKeydown);
+    // Cleanup event listeners
+    document.removeEventListener('keydown', this._boundHandleKeydown);
   }
 }
 
-customElements.define("app-modal", AppModal);
+customElements.define('app-modal', AppModal);
