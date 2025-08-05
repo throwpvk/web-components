@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <title>Web Component Modal Demo</title>
+  </head>
+  <body>
+    <!-- modal 1 -->
+    <div class="container">
+      <h1>Web Component Modal Demo</h1>
+      <div class="button-group">
+        <button id="open-modal-btn" class="btn btn-primary">Mở Modal</button>
+      </div>
+      <app-modal class="app-modal" heading="Modal Demo">
+        <p>Đây là nội dung của modal.</p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere aut
+          eveniet eos adipisci. Unde nisi odit eveniet natus distinctio quis
+          labore consectetur? Maiores quibusdam numquam porro. Iusto dignissimos
+          consequatur dolorem officia consequuntur fuga, ut esse! Veritatis
+          autem odio eos velit sequi iusto, consequuntur excepturi odit aut
+          tempore quas amet officiis?
+        </p>
+        <div slot="footer">
+          <button
+            class="btn btn-secondary"
+            onclick="this.closest('app-modal').close()"
+          >
+            Hủy
+          </button>
+          <button
+            class="btn btn-primary"
+            onclick="alert('Đã lưu!'); this.closest('app-modal').close()"
+          >
+            Lưu
+          </button>
+        </div>
+      </app-modal>
+    </div>
+    <!-- modal 2 -->
+    <div class="container">
+      <h1>Web Component Modal Demo 2</h1>
+      <div class="button-group">
+        <button id="open-modal-btn-2" class="btn btn-primary">
+          Mở Modal 2
+        </button>
+      </div>
+      <app-modal class="app-modal2" heading="Modal Demo 2">
+        <p>Đây là nội dung của modal 2.</p>
+        <p>Hello world</p>
+        <div slot="footer">
+          <button
+            class="btn btn-secondary"
+            onclick="this.closest('app-modal').close()"
+          >
+            Hủy
+          </button>
+          <button
+            class="btn btn-primary"
+            onclick="alert('Đã lưu!'); this.closest('app-modal').close()"
+          >
+            Lưu
+          </button>
+        </div>
+      </app-modal>
+    </div>
+  </body>
+  <script src="./js/main.js" type="module"></script>
+</html>
