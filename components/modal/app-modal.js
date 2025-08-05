@@ -49,6 +49,7 @@ class AppModal extends HTMLElement {
           opacity: 0;
           transition: all 0.3s ease;
           overflow: hidden;
+          position: relative;
         }
 
         .modal-overlay.show .modal-container {
@@ -85,13 +86,13 @@ class AppModal extends HTMLElement {
         }
 
         .close-btn {
-          background: none;
+          background: rgba(0,0,0,0.3);
           border: none;
+          border-radius: 50%;
+          color: white;
           font-size: 1.5rem;
-          color: #6b7280;
           cursor: pointer;
           padding: 4px;
-          border-radius: 6px;
           transition: all 0.2s ease;
           line-height: 1;
           width: 32px;
@@ -99,6 +100,10 @@ class AppModal extends HTMLElement {
           display: flex;
           align-items: center;
           justify-content: center;
+          position: absolute;
+          top: 20px;
+          right: 20px;
+          z-index: 1000;
         }
 
         .close-btn:hover {
@@ -191,8 +196,8 @@ class AppModal extends HTMLElement {
         <div class="modal-container">
           <div class="modal-header">
             <h2 class="modal-title"></h2>
-            <button class="close-btn" aria-label="Close modal">×</button>
           </div>
+          <button class="close-btn" aria-label="Close modal">×</button>
           <div class="modal-content">
             <slot></slot>
           </div>

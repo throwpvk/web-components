@@ -204,7 +204,7 @@ class AppTender extends HTMLElement {
 
         :host {
           display: block;
-          width: 100%;
+          width: 100vw;
           height: 100vh;
           background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
           position: relative;
@@ -224,7 +224,7 @@ class AppTender extends HTMLElement {
 
         .header {
           position: absolute;
-          top: 70px;
+          top: -3px;
           left: 0;
           right: 0;
           padding: 20px 100px 20px 20px;
@@ -232,34 +232,6 @@ class AppTender extends HTMLElement {
           justify-content: space-between;
           align-items: center;
           z-index: 10;
-        }
-
-        .close-modal-btn {
-          position: absolute;
-          top: 90px;
-          right: 20px;
-          width: 40px;
-          height: 40px;
-          background: rgba(0,0,0,0.3);
-          border: none;
-          border-radius: 50%;
-          color: white;
-          font-size: 20px;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          transition: all 0.2s ease;
-          z-index: 20;
-        }
-
-        .close-modal-btn:hover {
-          background: rgba(0,0,0,0.5);
-          transform: scale(1.1);
-        }
-
-        .close-modal-btn:active {
-          transform: scale(0.95);
         }
 
         .logo {
@@ -478,7 +450,7 @@ class AppTender extends HTMLElement {
           }
           
           .action-buttons {
-            bottom: 70px;
+            bottom: 40px;
           }
           
           .action-btn {
@@ -490,7 +462,6 @@ class AppTender extends HTMLElement {
       </style>
       
       <div class="tender-container">
-        <button class="close-modal-btn" onclick="this.getRootNode().host._closeModal()">×</button>
         <div class="header">
           <div class="logo">🔥 Tender</div>
           <div class="stats">
