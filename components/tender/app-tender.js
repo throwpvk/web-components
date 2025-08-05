@@ -224,7 +224,7 @@ class AppTender extends HTMLElement {
 
         .header {
           position: absolute;
-          top: 0;
+          top: 70px;
           left: 0;
           right: 0;
           padding: 20px 100px 20px 20px;
@@ -236,7 +236,7 @@ class AppTender extends HTMLElement {
 
         .close-modal-btn {
           position: absolute;
-          top: 20px;
+          top: 90px;
           right: 20px;
           width: 40px;
           height: 40px;
@@ -478,7 +478,7 @@ class AppTender extends HTMLElement {
           }
           
           .action-buttons {
-            bottom: 40px;
+            bottom: 70px;
           }
           
           .action-btn {
