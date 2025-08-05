@@ -738,14 +738,6 @@ class AppTender extends HTMLElement {
     }
   }
 
-  _closeModal() {
-    // Tìm modal cha và đóng nó
-    const modal = this.closest("app-modal");
-    if (modal) {
-      modal.close();
-    }
-  }
-
   _reset() {
     // Reset lại tất cả dữ liệu về trạng thái ban đầu
     this.liked = [];
