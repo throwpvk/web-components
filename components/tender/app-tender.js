@@ -204,8 +204,9 @@ class AppTender extends HTMLElement {
 
         :host {
           display: block;
-          width: 100vw;
-          height: 100vh;
+          width: 100%;
+          min-height: 100vh;
+          height: 100dvh;
           background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
           position: relative;
           overflow: hidden;
@@ -224,10 +225,10 @@ class AppTender extends HTMLElement {
 
         .header {
           position: absolute;
-          top: -3px;
+          top: 0;
           left: 0;
           right: 0;
-          padding: 20px 100px 20px 20px;
+          padding: calc(20px + env(safe-area-inset-top, 0px)) 100px 20px 20px;
           display: flex;
           justify-content: space-between;
           align-items: center;
@@ -369,7 +370,7 @@ class AppTender extends HTMLElement {
 
         .action-buttons {
           position: absolute;
-          bottom: 40px;
+          bottom: calc(40px + env(safe-area-inset-bottom, 0px));
           left: 50%;
           transform: translateX(-50%);
           display: flex;

@@ -59,15 +59,17 @@ class AppModal extends HTMLElement {
 
         .modal-container.fullscreen {
           width: calc(100vh * 9 / 16);
-          height: 100vh;
+          height: 100dvh;
           max-width: 90vw;
           min-width: 400px;
           border-radius: 12px;
           box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+          padding-top: env(safe-area-inset-top, 0px);
+          padding-bottom: env(safe-area-inset-bottom, 0px);
         }
 
         .modal-header {
-          padding: 20px 24px 0;
+          padding: calc(20px + env(safe-area-inset-top, 0px)) 24px 0 24px;
           display: flex;
           justify-content: space-between;
           align-items: flex-start;
@@ -124,7 +126,7 @@ class AppModal extends HTMLElement {
         }
 
         .modal-footer {
-          padding: 0 24px 20px;
+          padding: 0 24px calc(20px + env(safe-area-inset-bottom, 0px));
           display: flex;
           justify-content: flex-end;
           gap: 12px;
